@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KakoFunkcioniseRouteImport } from './routes/kako-funkcionise'
+import { Route as KategorijeRouteImport } from './routes/kategorije'
+import { Route as ONamaRouteImport } from './routes/o-nama'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KakoFunkcioniseRoute = KakoFunkcioniseRouteImport.update({
+  id: '/kako-funkcionise',
+  path: '/kako-funkcionise',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KategorijeRoute = KategorijeRouteImport.update({
+  id: '/kategorije',
+  path: '/kategorije',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ONamaRoute = ONamaRouteImport.update({
+  id: '/o-nama',
+  path: '/o-nama',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kako-funkcionise': typeof KakoFunkcioniseRoute
+  '/kategorije': typeof KategorijeRoute
+  '/o-nama': typeof ONamaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kako-funkcionise': typeof KakoFunkcioniseRoute
+  '/kategorije': typeof KategorijeRoute
+  '/o-nama': typeof ONamaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/kako-funkcionise': typeof KakoFunkcioniseRoute
+  '/kategorije': typeof KategorijeRoute
+  '/o-nama': typeof ONamaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
+  id: '__root__' | '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KakoFunkcioniseRoute: typeof KakoFunkcioniseRoute
+  KategorijeRoute: typeof KategorijeRoute
+  ONamaRoute: typeof ONamaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kako-funkcionise': {
+      id: '/kako-funkcionise'
+      path: '/kako-funkcionise'
+      fullPath: '/kako-funkcionise'
+      preLoaderRoute: typeof KakoFunkcioniseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kategorije': {
+      id: '/kategorije'
+      path: '/kategorije'
+      fullPath: '/kategorije'
+      preLoaderRoute: typeof KategorijeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/o-nama': {
+      id: '/o-nama'
+      path: '/o-nama'
+      fullPath: '/o-nama'
+      preLoaderRoute: typeof ONamaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KakoFunkcioniseRoute: KakoFunkcioniseRoute,
+  KategorijeRoute: KategorijeRoute,
+  ONamaRoute: ONamaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
