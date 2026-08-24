@@ -12,7 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as KakoFunkcioniseRouteImport } from './routes/kako-funkcionise'
 import { Route as KategorijeRouteImport } from './routes/kategorije'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ONamaRouteImport } from './routes/o-nama'
+import { Route as ProizvodiRouteImport } from './routes/proizvodi'
+import { Route as ProdavacIdRouteImport } from './routes/prodavac.$id'
+import { Route as ProizvodIdRouteImport } from './routes/proizvod.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +33,29 @@ const KategorijeRoute = KategorijeRouteImport.update({
   path: '/kategorije',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ONamaRoute = ONamaRouteImport.update({
   id: '/o-nama',
   path: '/o-nama',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProizvodiRoute = ProizvodiRouteImport.update({
+  id: '/proizvodi',
+  path: '/proizvodi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProdavacIdRoute = ProdavacIdRouteImport.update({
+  id: '/prodavac/$id',
+  path: '/prodavac/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProizvodIdRoute = ProizvodIdRouteImport.update({
+  id: '/proizvod/$id',
+  path: '/proizvod/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -39,34 +63,75 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/kako-funkcionise': typeof KakoFunkcioniseRoute
   '/kategorije': typeof KategorijeRoute
+  '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/proizvodi': typeof ProizvodiRoute
+  '/prodavac/$id': typeof ProdavacIdRoute
+  '/proizvod/$id': typeof ProizvodIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/kako-funkcionise': typeof KakoFunkcioniseRoute
   '/kategorije': typeof KategorijeRoute
+  '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/proizvodi': typeof ProizvodiRoute
+  '/prodavac/$id': typeof ProdavacIdRoute
+  '/proizvod/$id': typeof ProizvodIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/kako-funkcionise': typeof KakoFunkcioniseRoute
   '/kategorije': typeof KategorijeRoute
+  '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/proizvodi': typeof ProizvodiRoute
+  '/prodavac/$id': typeof ProdavacIdRoute
+  '/proizvod/$id': typeof ProizvodIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
+  fullPaths:
+    | '/'
+    | '/kako-funkcionise'
+    | '/kategorije'
+    | '/kontakt'
+    | '/o-nama'
+    | '/proizvodi'
+    | '/prodavac/$id'
+    | '/proizvod/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
-  id: '__root__' | '/' | '/kako-funkcionise' | '/kategorije' | '/o-nama'
+  to:
+    | '/'
+    | '/kako-funkcionise'
+    | '/kategorije'
+    | '/kontakt'
+    | '/o-nama'
+    | '/proizvodi'
+    | '/prodavac/$id'
+    | '/proizvod/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/kako-funkcionise'
+    | '/kategorije'
+    | '/kontakt'
+    | '/o-nama'
+    | '/proizvodi'
+    | '/prodavac/$id'
+    | '/proizvod/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   KakoFunkcioniseRoute: typeof KakoFunkcioniseRoute
   KategorijeRoute: typeof KategorijeRoute
+  KontaktRoute: typeof KontaktRoute
   ONamaRoute: typeof ONamaRoute
+  ProizvodiRoute: typeof ProizvodiRoute
+  ProdavacIdRoute: typeof ProdavacIdRoute
+  ProizvodIdRoute: typeof ProizvodIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,11 +157,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategorijeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/o-nama': {
       id: '/o-nama'
       path: '/o-nama'
       fullPath: '/o-nama'
       preLoaderRoute: typeof ONamaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proizvodi': {
+      id: '/proizvodi'
+      path: '/proizvodi'
+      fullPath: '/proizvodi'
+      preLoaderRoute: typeof ProizvodiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prodavac/$id': {
+      id: '/prodavac/$id'
+      path: '/prodavac/$id'
+      fullPath: '/prodavac/$id'
+      preLoaderRoute: typeof ProdavacIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proizvod/$id': {
+      id: '/proizvod/$id'
+      path: '/proizvod/$id'
+      fullPath: '/proizvod/$id'
+      preLoaderRoute: typeof ProizvodIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,7 +199,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   KakoFunkcioniseRoute: KakoFunkcioniseRoute,
   KategorijeRoute: KategorijeRoute,
+  KontaktRoute: KontaktRoute,
   ONamaRoute: ONamaRoute,
+  ProizvodiRoute: ProizvodiRoute,
+  ProdavacIdRoute: ProdavacIdRoute,
+  ProizvodIdRoute: ProizvodIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
