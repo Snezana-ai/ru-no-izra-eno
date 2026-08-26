@@ -10,17 +10,29 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as KakoFunkcioniseRouteImport } from './routes/kako-funkcionise'
 import { Route as KategorijeRouteImport } from './routes/kategorije'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ONamaRouteImport } from './routes/o-nama'
+import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as ProizvodiRouteImport } from './routes/proizvodi'
+import { Route as AuthenticatedDodajProizvodRouteImport } from './routes/_authenticated/dodaj-proizvod'
+import { Route as AuthenticatedKontrolnaTablaRouteImport } from './routes/_authenticated/kontrolna-tabla'
+import { Route as AuthenticatedMojProfilRouteImport } from './routes/_authenticated/moj-profil'
+import { Route as AuthenticatedMojiProizvodiRouteImport } from './routes/_authenticated/moji-proizvodi'
+import { Route as AuthenticatedPorukeRouteImport } from './routes/_authenticated/poruke'
 import { Route as ProdavacIdRouteImport } from './routes/prodavac.$id'
 import { Route as ProizvodIdRouteImport } from './routes/proizvod.$id'
+import { Route as AuthenticatedUrediProizvodIdRouteImport } from './routes/_authenticated/uredi-proizvod.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KakoFunkcioniseRoute = KakoFunkcioniseRouteImport.update({
@@ -43,10 +55,43 @@ const ONamaRoute = ONamaRouteImport.update({
   path: '/o-nama',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrijavaRoute = PrijavaRouteImport.update({
+  id: '/prijava',
+  path: '/prijava',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProizvodiRoute = ProizvodiRouteImport.update({
   id: '/proizvodi',
   path: '/proizvodi',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDodajProizvodRoute =
+  AuthenticatedDodajProizvodRouteImport.update({
+    id: '/dodaj-proizvod',
+    path: '/dodaj-proizvod',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKontrolnaTablaRoute =
+  AuthenticatedKontrolnaTablaRouteImport.update({
+    id: '/kontrolna-tabla',
+    path: '/kontrolna-tabla',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMojProfilRoute = AuthenticatedMojProfilRouteImport.update({
+  id: '/moj-profil',
+  path: '/moj-profil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMojiProizvodiRoute =
+  AuthenticatedMojiProizvodiRouteImport.update({
+    id: '/moji-proizvodi',
+    path: '/moji-proizvodi',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPorukeRoute = AuthenticatedPorukeRouteImport.update({
+  id: '/poruke',
+  path: '/poruke',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ProdavacIdRoute = ProdavacIdRouteImport.update({
   id: '/prodavac/$id',
@@ -58,6 +103,12 @@ const ProizvodIdRoute = ProizvodIdRouteImport.update({
   path: '/proizvod/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedUrediProizvodIdRoute =
+  AuthenticatedUrediProizvodIdRouteImport.update({
+    id: '/uredi-proizvod/$id',
+    path: '/uredi-proizvod/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +116,16 @@ export interface FileRoutesByFullPath {
   '/kategorije': typeof KategorijeRoute
   '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
+  '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/moj-profil': typeof AuthenticatedMojProfilRoute
+  '/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
+  '/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,20 +133,35 @@ export interface FileRoutesByTo {
   '/kategorije': typeof KategorijeRoute
   '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
+  '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/moj-profil': typeof AuthenticatedMojProfilRoute
+  '/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
+  '/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/kako-funkcionise': typeof KakoFunkcioniseRoute
   '/kategorije': typeof KategorijeRoute
   '/kontakt': typeof KontaktRoute
   '/o-nama': typeof ONamaRoute
+  '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/_authenticated/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
+  '/_authenticated/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/_authenticated/moj-profil': typeof AuthenticatedMojProfilRoute
+  '/_authenticated/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/_authenticated/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
+  '/_authenticated/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,9 +171,16 @@ export interface FileRouteTypes {
     | '/kategorije'
     | '/kontakt'
     | '/o-nama'
+    | '/prijava'
     | '/proizvodi'
+    | '/dodaj-proizvod'
+    | '/kontrolna-tabla'
+    | '/moj-profil'
+    | '/moji-proizvodi'
+    | '/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
+    | '/uredi-proizvod/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,27 +188,44 @@ export interface FileRouteTypes {
     | '/kategorije'
     | '/kontakt'
     | '/o-nama'
+    | '/prijava'
     | '/proizvodi'
+    | '/dodaj-proizvod'
+    | '/kontrolna-tabla'
+    | '/moj-profil'
+    | '/moji-proizvodi'
+    | '/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
+    | '/uredi-proizvod/$id'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/kako-funkcionise'
     | '/kategorije'
     | '/kontakt'
     | '/o-nama'
+    | '/prijava'
     | '/proizvodi'
+    | '/_authenticated/dodaj-proizvod'
+    | '/_authenticated/kontrolna-tabla'
+    | '/_authenticated/moj-profil'
+    | '/_authenticated/moji-proizvodi'
+    | '/_authenticated/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
+    | '/_authenticated/uredi-proizvod/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   KakoFunkcioniseRoute: typeof KakoFunkcioniseRoute
   KategorijeRoute: typeof KategorijeRoute
   KontaktRoute: typeof KontaktRoute
   ONamaRoute: typeof ONamaRoute
+  PrijavaRoute: typeof PrijavaRoute
   ProizvodiRoute: typeof ProizvodiRoute
   ProdavacIdRoute: typeof ProdavacIdRoute
   ProizvodIdRoute: typeof ProizvodIdRoute
@@ -141,6 +238,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kako-funkcionise': {
@@ -171,12 +275,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ONamaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prijava': {
+      id: '/prijava'
+      path: '/prijava'
+      fullPath: '/prijava'
+      preLoaderRoute: typeof PrijavaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/proizvodi': {
       id: '/proizvodi'
       path: '/proizvodi'
       fullPath: '/proizvodi'
       preLoaderRoute: typeof ProizvodiRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/dodaj-proizvod': {
+      id: '/_authenticated/dodaj-proizvod'
+      path: '/dodaj-proizvod'
+      fullPath: '/dodaj-proizvod'
+      preLoaderRoute: typeof AuthenticatedDodajProizvodRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kontrolna-tabla': {
+      id: '/_authenticated/kontrolna-tabla'
+      path: '/kontrolna-tabla'
+      fullPath: '/kontrolna-tabla'
+      preLoaderRoute: typeof AuthenticatedKontrolnaTablaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/moj-profil': {
+      id: '/_authenticated/moj-profil'
+      path: '/moj-profil'
+      fullPath: '/moj-profil'
+      preLoaderRoute: typeof AuthenticatedMojProfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/moji-proizvodi': {
+      id: '/_authenticated/moji-proizvodi'
+      path: '/moji-proizvodi'
+      fullPath: '/moji-proizvodi'
+      preLoaderRoute: typeof AuthenticatedMojiProizvodiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/poruke': {
+      id: '/_authenticated/poruke'
+      path: '/poruke'
+      fullPath: '/poruke'
+      preLoaderRoute: typeof AuthenticatedPorukeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/prodavac/$id': {
       id: '/prodavac/$id'
@@ -192,15 +338,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProizvodIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/uredi-proizvod/$id': {
+      id: '/_authenticated/uredi-proizvod/$id'
+      path: '/uredi-proizvod/$id'
+      fullPath: '/uredi-proizvod/$id'
+      preLoaderRoute: typeof AuthenticatedUrediProizvodIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDodajProizvodRoute: typeof AuthenticatedDodajProizvodRoute
+  AuthenticatedKontrolnaTablaRoute: typeof AuthenticatedKontrolnaTablaRoute
+  AuthenticatedMojProfilRoute: typeof AuthenticatedMojProfilRoute
+  AuthenticatedMojiProizvodiRoute: typeof AuthenticatedMojiProizvodiRoute
+  AuthenticatedPorukeRoute: typeof AuthenticatedPorukeRoute
+  AuthenticatedUrediProizvodIdRoute: typeof AuthenticatedUrediProizvodIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDodajProizvodRoute: AuthenticatedDodajProizvodRoute,
+  AuthenticatedKontrolnaTablaRoute: AuthenticatedKontrolnaTablaRoute,
+  AuthenticatedMojProfilRoute: AuthenticatedMojProfilRoute,
+  AuthenticatedMojiProizvodiRoute: AuthenticatedMojiProizvodiRoute,
+  AuthenticatedPorukeRoute: AuthenticatedPorukeRoute,
+  AuthenticatedUrediProizvodIdRoute: AuthenticatedUrediProizvodIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   KakoFunkcioniseRoute: KakoFunkcioniseRoute,
   KategorijeRoute: KategorijeRoute,
   KontaktRoute: KontaktRoute,
   ONamaRoute: ONamaRoute,
+  PrijavaRoute: PrijavaRoute,
   ProizvodiRoute: ProizvodiRoute,
   ProdavacIdRoute: ProdavacIdRoute,
   ProizvodIdRoute: ProizvodIdRoute,
