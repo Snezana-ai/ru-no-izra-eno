@@ -19,7 +19,9 @@ import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as ProizvodiRouteImport } from './routes/proizvodi'
 import { Route as AuthenticatedDodajProizvodRouteImport } from './routes/_authenticated/dodaj-proizvod'
 import { Route as AuthenticatedKontrolnaTablaRouteImport } from './routes/_authenticated/kontrolna-tabla'
+import { Route as AuthenticatedMojProfilRouteImport } from './routes/_authenticated/moj-profil'
 import { Route as AuthenticatedMojiProizvodiRouteImport } from './routes/_authenticated/moji-proizvodi'
+import { Route as AuthenticatedPorukeRouteImport } from './routes/_authenticated/poruke'
 import { Route as ProdavacIdRouteImport } from './routes/prodavac.$id'
 import { Route as ProizvodIdRouteImport } from './routes/proizvod.$id'
 import { Route as AuthenticatedUrediProizvodIdRouteImport } from './routes/_authenticated/uredi-proizvod.$id'
@@ -75,12 +77,22 @@ const AuthenticatedKontrolnaTablaRoute =
     path: '/kontrolna-tabla',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMojProfilRoute = AuthenticatedMojProfilRouteImport.update({
+  id: '/moj-profil',
+  path: '/moj-profil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedMojiProizvodiRoute =
   AuthenticatedMojiProizvodiRouteImport.update({
     id: '/moji-proizvodi',
     path: '/moji-proizvodi',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPorukeRoute = AuthenticatedPorukeRouteImport.update({
+  id: '/poruke',
+  path: '/poruke',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ProdavacIdRoute = ProdavacIdRouteImport.update({
   id: '/prodavac/$id',
   path: '/prodavac/$id',
@@ -108,7 +120,9 @@ export interface FileRoutesByFullPath {
   '/proizvodi': typeof ProizvodiRoute
   '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/moj-profil': typeof AuthenticatedMojProfilRoute
   '/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
   '/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
@@ -123,7 +137,9 @@ export interface FileRoutesByTo {
   '/proizvodi': typeof ProizvodiRoute
   '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/moj-profil': typeof AuthenticatedMojProfilRoute
   '/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
   '/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
@@ -140,7 +156,9 @@ export interface FileRoutesById {
   '/proizvodi': typeof ProizvodiRoute
   '/_authenticated/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/_authenticated/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
+  '/_authenticated/moj-profil': typeof AuthenticatedMojProfilRoute
   '/_authenticated/moji-proizvodi': typeof AuthenticatedMojiProizvodiRoute
+  '/_authenticated/poruke': typeof AuthenticatedPorukeRoute
   '/prodavac/$id': typeof ProdavacIdRoute
   '/proizvod/$id': typeof ProizvodIdRoute
   '/_authenticated/uredi-proizvod/$id': typeof AuthenticatedUrediProizvodIdRoute
@@ -157,7 +175,9 @@ export interface FileRouteTypes {
     | '/proizvodi'
     | '/dodaj-proizvod'
     | '/kontrolna-tabla'
+    | '/moj-profil'
     | '/moji-proizvodi'
+    | '/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
     | '/uredi-proizvod/$id'
@@ -172,7 +192,9 @@ export interface FileRouteTypes {
     | '/proizvodi'
     | '/dodaj-proizvod'
     | '/kontrolna-tabla'
+    | '/moj-profil'
     | '/moji-proizvodi'
+    | '/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
     | '/uredi-proizvod/$id'
@@ -188,7 +210,9 @@ export interface FileRouteTypes {
     | '/proizvodi'
     | '/_authenticated/dodaj-proizvod'
     | '/_authenticated/kontrolna-tabla'
+    | '/_authenticated/moj-profil'
     | '/_authenticated/moji-proizvodi'
+    | '/_authenticated/poruke'
     | '/prodavac/$id'
     | '/proizvod/$id'
     | '/_authenticated/uredi-proizvod/$id'
@@ -279,11 +303,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedKontrolnaTablaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/moj-profil': {
+      id: '/_authenticated/moj-profil'
+      path: '/moj-profil'
+      fullPath: '/moj-profil'
+      preLoaderRoute: typeof AuthenticatedMojProfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/moji-proizvodi': {
       id: '/_authenticated/moji-proizvodi'
       path: '/moji-proizvodi'
       fullPath: '/moji-proizvodi'
       preLoaderRoute: typeof AuthenticatedMojiProizvodiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/poruke': {
+      id: '/_authenticated/poruke'
+      path: '/poruke'
+      fullPath: '/poruke'
+      preLoaderRoute: typeof AuthenticatedPorukeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/prodavac/$id': {
@@ -313,14 +351,18 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDodajProizvodRoute: typeof AuthenticatedDodajProizvodRoute
   AuthenticatedKontrolnaTablaRoute: typeof AuthenticatedKontrolnaTablaRoute
+  AuthenticatedMojProfilRoute: typeof AuthenticatedMojProfilRoute
   AuthenticatedMojiProizvodiRoute: typeof AuthenticatedMojiProizvodiRoute
+  AuthenticatedPorukeRoute: typeof AuthenticatedPorukeRoute
   AuthenticatedUrediProizvodIdRoute: typeof AuthenticatedUrediProizvodIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDodajProizvodRoute: AuthenticatedDodajProizvodRoute,
   AuthenticatedKontrolnaTablaRoute: AuthenticatedKontrolnaTablaRoute,
+  AuthenticatedMojProfilRoute: AuthenticatedMojProfilRoute,
   AuthenticatedMojiProizvodiRoute: AuthenticatedMojiProizvodiRoute,
+  AuthenticatedPorukeRoute: AuthenticatedPorukeRoute,
   AuthenticatedUrediProizvodIdRoute: AuthenticatedUrediProizvodIdRoute,
 }
 
