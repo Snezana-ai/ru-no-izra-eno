@@ -176,3 +176,66 @@ export async function uploadImage(bucket: string, userId: string, file: File): P
   if (signError) throw signError;
   return data.signedUrl;
 }
+
+export type ProductInput = {
+  name: string;
+  short_description: string | null;
+  description: string | null;
+  price: number;
+  category: string;
+  location: string | null;
+  status: string;
+  images: string[];
+};
+
+export async function createProduct(sellerId: string, input: ProductInput): Promise<Product> {
+  const { data, error } = await supabase
+    .from("products")
+    .insert({ ...input, seller_id: sellerId })
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data as Product;
+}
+
+export async function updateProduct(id: string, input: Partial<ProductInput>): Promise<void> {
+  const { error } = await supabase.from("products").update(input).eq("id", id);
+  if (error) throw error;
+}
+
+export async function deleteProduct(id: string): Promise<void> {
+  const { error } = await supabase.from("products").delete().eq("id", id);
+  if (error) throw error;
+}
+
+export type ProfileInput = {
+  name: string;
+  bio: string | null;
+  location: string | null;
+  avatar_url: string | null;
+  public_contact: string | null;
+};
+
+export async function updateProfile(id: string, input: ProfileInput): Promise<void> {
+  const { error } = await supabase.from("profiles").update(input).eq("id", id);
+  if (error) throw error;
+}
+
+export type Contacts = { email: string | null; phone: string | null };
+
+export async function fetchContacts(userId: string): Promise<Contacts | null> {
+  const { data, error } = await supabase
+    .from("profile_contacts")
+    .select("email, phone")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (error) throw error;
+  return (data as Contacts | null) ?? null;
+}
+
+export async function upsertContacts(userId: string, input: Contacts): Promise<void> {
+  const { error } = await supabase
+    .from("profile_contacts")
+    .upsert({ user_id: userId, ...input }, { onConflict: "user_id" });
+  if (error) throw error;
+}
