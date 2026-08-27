@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/use-auth";
 
 type AuthSearch = { mode?: "prijava" | "registracija" | undefined };
@@ -103,6 +104,23 @@ function AuthPage() {
     }
   }
 
+  async function googleSignIn() {
+    setBusy(true);
+    try {
+      const result = await lovable.auth.signInWithOAuth("google", {
+        redirect_uri: window.location.origin,
+      });
+      if (result.error) {
+        toast.error("Prijava preko Google računa nije uspela.");
+        return;
+      }
+      if (result.redirected) return;
+      toast.success("Uspešna prijava.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="container-page py-16">
       <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
@@ -113,7 +131,24 @@ function AuthPage() {
             : "Prijavite se da nastavite razgovore i upravljate proizvodima."}
         </p>
 
-        <form onSubmit={submit} className="mt-7 space-y-5">
+        <Button
+          type="button"
+          variant="outline"
+          size="lg"
+          className="mt-7 w-full"
+          onClick={googleSignIn}
+          disabled={busy}
+        >
+          Nastavi sa Google računom
+        </Button>
+
+        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+          <span className="h-px flex-1 bg-border" />
+          ILI EMAIL
+          <span className="h-px flex-1 bg-border" />
+        </div>
+
+        <form onSubmit={submit} className="space-y-5">
           {isRegister ? (
             <div>
               <Label htmlFor="name">Ime ili naziv radionice</Label>
