@@ -16,11 +16,11 @@ import {
 } from "@/lib/queries";
 import { supabase } from "@/integrations/supabase/client";
 
-type MessagesSearch = { sa?: string };
+type MessagesSearch = { sa?: string | undefined };
 
 export const Route = createFileRoute("/_authenticated/poruke")({
   validateSearch: (search: Record<string, unknown>): MessagesSearch => ({
-    sa: typeof search.sa === "string" && search.sa ? search.sa : undefined,
+    sa: typeof search["sa"] === "string" && search["sa"] ? (search["sa"] as string) : undefined,
   }),
   head: () => ({
     meta: [

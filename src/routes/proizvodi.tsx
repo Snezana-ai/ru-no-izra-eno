@@ -16,27 +16,31 @@ import { ProductCard } from "@/components/product-card";
 import { CATEGORIES } from "@/lib/marketplace";
 import { fetchProducts } from "@/lib/queries";
 
+type SortOption = "najnovije" | "cena-rastuce" | "cena-opadajuce";
+
 type ProductSearch = {
-  q?: string;
-  kategorija?: string;
-  minCena?: number;
-  maxCena?: number;
-  sort?: "najnovije" | "cena-rastuce" | "cena-opadajuce";
+  q?: string | undefined;
+  kategorija?: string | undefined;
+  minCena?: number | undefined;
+  maxCena?: number | undefined;
+  sort?: SortOption | undefined;
 };
 
 export const Route = createFileRoute("/proizvodi")({
   validateSearch: (search: Record<string, unknown>): ProductSearch => {
-    const sort = search.sort;
+    const sort = search["sort"];
     const num = (v: unknown) => {
       const n = Number(v);
       return Number.isFinite(n) && n >= 0 ? n : undefined;
     };
     return {
-      q: typeof search.q === "string" && search.q ? search.q : undefined,
+      q: typeof search["q"] === "string" && search["q"] ? (search["q"] as string) : undefined,
       kategorija:
-        typeof search.kategorija === "string" && search.kategorija ? search.kategorija : undefined,
-      minCena: search.minCena === undefined ? undefined : num(search.minCena),
-      maxCena: search.maxCena === undefined ? undefined : num(search.maxCena),
+        typeof search["kategorija"] === "string" && search["kategorija"]
+          ? (search["kategorija"] as string)
+          : undefined,
+      minCena: search["minCena"] === undefined ? undefined : num(search["minCena"]),
+      maxCena: search["maxCena"] === undefined ? undefined : num(search["maxCena"]),
       sort:
         sort === "cena-rastuce" || sort === "cena-opadajuce" || sort === "najnovije"
           ? sort
@@ -137,7 +141,7 @@ function ProductsPage() {
                   size="sm"
                   onClick={() =>
                     navigate({
-                      search: { sort: search.sort },
+                      search: { sort: search.sort } as ProductSearch,
                     })
                   }
                 >
@@ -206,7 +210,7 @@ function ProductsPage() {
                 <Label className="text-xs tracking-wide uppercase">Sortiranje</Label>
                 <Select
                   value={search.sort ?? "najnovije"}
-                  onValueChange={(v) => update({ sort: v as ProductSearch["sort"] })}
+                  onValueChange={(v) => update({ sort: v as SortOption })}
                 >
                   <SelectTrigger className="mt-2 w-full">
                     <SelectValue />

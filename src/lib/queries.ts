@@ -4,11 +4,11 @@ import type { Product, Profile, ProductWithSeller } from "@/lib/marketplace";
 const PUBLIC_STATUSES = ["dostupno", "rezervisano", "prodato"];
 
 export type ProductFilters = {
-  q?: string;
-  kategorija?: string;
-  minCena?: number;
-  maxCena?: number;
-  sort?: "najnovije" | "cena-rastuce" | "cena-opadajuce";
+  q?: string | undefined;
+  kategorija?: string | undefined;
+  minCena?: number | undefined;
+  maxCena?: number | undefined;
+  sort?: "najnovije" | "cena-rastuce" | "cena-opadajuce" | undefined;
 };
 
 async function attachSellers(products: Product[]): Promise<ProductWithSeller[]> {
