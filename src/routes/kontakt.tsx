@@ -81,8 +81,8 @@ function ContactPage() {
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="mt-2"
               />
-              {errors.name ? (
-                <p className="mt-1 text-xs text-destructive">{errors.name}</p>
+              {errors["name"] ? (
+                <p className="mt-1 text-xs text-destructive">{errors["name"]}</p>
               ) : null}
             </div>
             <div>
@@ -95,8 +95,8 @@ function ContactPage() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="mt-2"
               />
-              {errors.email ? (
-                <p className="mt-1 text-xs text-destructive">{errors.email}</p>
+              {errors["email"] ? (
+                <p className="mt-1 text-xs text-destructive">{errors["email"]}</p>
               ) : null}
             </div>
             <div>
@@ -109,8 +109,8 @@ function ContactPage() {
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="mt-2"
               />
-              {errors.message ? (
-                <p className="mt-1 text-xs text-destructive">{errors.message}</p>
+              {errors["message"] ? (
+                <p className="mt-1 text-xs text-destructive">{errors["message"]}</p>
               ) : null}
             </div>
             <Button type="submit" size="lg" className="w-full">

@@ -8,11 +8,11 @@ import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 
-type AuthSearch = { mode?: "prijava" | "registracija" };
+type AuthSearch = { mode?: "prijava" | "registracija" | undefined };
 
 export const Route = createFileRoute("/prijava")({
   validateSearch: (search: Record<string, unknown>): AuthSearch => ({
-    mode: search.mode === "registracija" ? "registracija" : "prijava",
+    mode: search["mode"] === "registracija" ? "registracija" : "prijava",
   }),
   head: () => ({
     meta: [
