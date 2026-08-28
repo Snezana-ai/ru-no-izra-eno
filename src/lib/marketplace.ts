@@ -25,6 +25,7 @@ export type Product = {
   images: string[];
   location: string | null;
   status: string;
+  is_hidden?: boolean;
   created_at: string;
 };
 
@@ -36,6 +37,7 @@ export type Profile = {
   avatar_url: string | null;
   public_contact: string | null;
   is_demo: boolean;
+  is_blocked?: boolean;
   created_at: string;
 };
 
