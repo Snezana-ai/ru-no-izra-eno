@@ -2,12 +2,15 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import type { Session, User } from "@supabase/supabase-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { checkIsAdmin } from "@/lib/admin";
 import type { Profile } from "@/lib/marketplace";
 
 type AuthContextValue = {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
+  isAdmin: boolean;
+  adminLoading: boolean;
   loading: boolean;
   signOut: () => Promise<void>;
 };
