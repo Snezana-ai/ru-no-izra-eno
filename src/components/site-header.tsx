@@ -23,7 +23,7 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
   const initials = (profile?.name ?? "K").slice(0, 1).toUpperCase();
@@ -88,6 +88,14 @@ export function SiteHeader() {
                   <DropdownMenuItem asChild>
                     <Link to="/moj-profil">Moj profil</Link>
                   </DropdownMenuItem>
+                  {isAdmin ? (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                        <Link to="/admin">Administracija</Link>
+                      </DropdownMenuItem>
+                    </>
+                  ) : null}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onSelect={handleSignOut}>Odjava</DropdownMenuItem>
                 </DropdownMenuContent>
@@ -150,6 +158,15 @@ export function SiteHeader() {
                 >
                   Dodaj proizvod
                 </Link>
+                {isAdmin ? (
+                  <Link
+                    to="/admin"
+                    onClick={() => setOpen(false)}
+                    className="px-2 py-3 text-sm font-medium text-primary"
+                  >
+                    Administracija
+                  </Link>
+                ) : null}
               </div>
             ) : null}
           </nav>
