@@ -2,12 +2,15 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import type { Session, User } from "@supabase/supabase-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { checkIsAdmin } from "@/lib/admin";
 import type { Profile } from "@/lib/marketplace";
 
 type AuthContextValue = {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
+  isAdmin: boolean;
+  adminLoading: boolean;
   loading: boolean;
   signOut: () => Promise<void>;
 };
@@ -61,11 +64,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
+  const { data: isAdmin, isPending: adminPending } = useQuery({
+    queryKey: ["is-admin", userId],
+    enabled: !!userId,
+    queryFn: () => checkIsAdmin(userId!),
+  });
+
   const value = useMemo<AuthContextValue>(
     () => ({
       session,
       user: session?.user ?? null,
       profile: profile ?? null,
+      isAdmin: isAdmin === true,
+      adminLoading: !!userId && adminPending,
       loading,
       signOut: async () => {
         await queryClient.cancelQueries();
@@ -73,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await supabase.auth.signOut();
       },
     }),
-    [session, profile, loading, queryClient],
+    [session, profile, isAdmin, adminPending, userId, loading, queryClient],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

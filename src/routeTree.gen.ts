@@ -17,6 +17,7 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as ONamaRouteImport } from './routes/o-nama'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as ProizvodiRouteImport } from './routes/proizvodi'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDodajProizvodRouteImport } from './routes/_authenticated/dodaj-proizvod'
 import { Route as AuthenticatedKontrolnaTablaRouteImport } from './routes/_authenticated/kontrolna-tabla'
 import { Route as AuthenticatedMojProfilRouteImport } from './routes/_authenticated/moj-profil'
@@ -64,6 +65,11 @@ const ProizvodiRoute = ProizvodiRouteImport.update({
   id: '/proizvodi',
   path: '/proizvodi',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDodajProizvodRoute =
   AuthenticatedDodajProizvodRouteImport.update({
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/o-nama': typeof ONamaRoute
   '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
   '/moj-profil': typeof AuthenticatedMojProfilRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/o-nama': typeof ONamaRoute
   '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
   '/moj-profil': typeof AuthenticatedMojProfilRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/o-nama': typeof ONamaRoute
   '/prijava': typeof PrijavaRoute
   '/proizvodi': typeof ProizvodiRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dodaj-proizvod': typeof AuthenticatedDodajProizvodRoute
   '/_authenticated/kontrolna-tabla': typeof AuthenticatedKontrolnaTablaRoute
   '/_authenticated/moj-profil': typeof AuthenticatedMojProfilRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/o-nama'
     | '/prijava'
     | '/proizvodi'
+    | '/admin'
     | '/dodaj-proizvod'
     | '/kontrolna-tabla'
     | '/moj-profil'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/o-nama'
     | '/prijava'
     | '/proizvodi'
+    | '/admin'
     | '/dodaj-proizvod'
     | '/kontrolna-tabla'
     | '/moj-profil'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/o-nama'
     | '/prijava'
     | '/proizvodi'
+    | '/_authenticated/admin'
     | '/_authenticated/dodaj-proizvod'
     | '/_authenticated/kontrolna-tabla'
     | '/_authenticated/moj-profil'
@@ -289,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProizvodiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dodaj-proizvod': {
       id: '/_authenticated/dodaj-proizvod'
       path: '/dodaj-proizvod'
@@ -349,6 +368,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedDodajProizvodRoute: typeof AuthenticatedDodajProizvodRoute
   AuthenticatedKontrolnaTablaRoute: typeof AuthenticatedKontrolnaTablaRoute
   AuthenticatedMojProfilRoute: typeof AuthenticatedMojProfilRoute
@@ -358,6 +378,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedDodajProizvodRoute: AuthenticatedDodajProizvodRoute,
   AuthenticatedKontrolnaTablaRoute: AuthenticatedKontrolnaTablaRoute,
   AuthenticatedMojProfilRoute: AuthenticatedMojProfilRoute,

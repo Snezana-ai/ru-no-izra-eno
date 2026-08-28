@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.17"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
@@ -73,6 +73,7 @@ export type Database = {
           description: string | null
           id: string
           images: string[]
+          is_hidden: boolean
           location: string | null
           name: string
           price: number
@@ -87,6 +88,7 @@ export type Database = {
           description?: string | null
           id?: string
           images?: string[]
+          is_hidden?: boolean
           location?: string | null
           name: string
           price?: number
@@ -101,6 +103,7 @@ export type Database = {
           description?: string | null
           id?: string
           images?: string[]
+          is_hidden?: boolean
           location?: string | null
           name?: string
           price?: number
@@ -154,6 +157,7 @@ export type Database = {
           bio: string | null
           created_at: string
           id: string
+          is_blocked: boolean
           is_demo: boolean
           location: string | null
           name: string
@@ -165,6 +169,7 @@ export type Database = {
           bio?: string | null
           created_at?: string
           id: string
+          is_blocked?: boolean
           is_demo?: boolean
           location?: string | null
           name?: string
@@ -176,6 +181,7 @@ export type Database = {
           bio?: string | null
           created_at?: string
           id?: string
+          is_blocked?: boolean
           is_demo?: boolean
           location?: string | null
           name?: string
@@ -184,15 +190,43 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_blocked: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -319,6 +353,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
